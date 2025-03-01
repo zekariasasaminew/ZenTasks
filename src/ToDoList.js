@@ -47,10 +47,9 @@ const ToDoList = ({ tasks, toggleTaskCompletion }) => {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
                 padding: "10px",
                 marginBottom: "10px",
-                borderRadius: "10px",
+                borderRadius: "100px",
                 backgroundColor: task.completed ? "#ffe6e9" : "#fff", // Soft color change for completed tasks
                 transition: "0.3s",
                 "&:hover": {

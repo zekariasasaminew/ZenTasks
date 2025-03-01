@@ -134,8 +134,9 @@ function App() {
               src={flowerImage}
               alt="Flower"
               style={{
-                width: "25vw",
-                maxWidth: "200px",
+                borderRadius: "15px",
+                width: "50vw",
+                maxWidth: "500px",
                 minWidth: "120px",
                 height: "auto",
               }}
