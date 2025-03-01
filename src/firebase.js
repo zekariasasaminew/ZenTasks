@@ -7,10 +7,18 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
-// Replace this with your actual Firebase config from Firebase Console
+// Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -24,6 +32,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// Define tasksCollection properly
 const tasksCollection = collection(db, "tasks");
 
-export { db, tasksCollection, addDoc, getDocs, deleteDoc, updateDoc, doc };
+const signIn = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    return result.user;
+  } catch (error) {
+    console.error("Error signing in:", error);
+  }
+};
+
+const logout = async () => {
+  await signOut(auth);
+};
+
+export {
+  db,
+  auth,
+  signIn,
+  logout,
+  tasksCollection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+  doc,
+  query,
+  where,
+};
