@@ -5,7 +5,10 @@ import AutoAwesome from "@mui/icons-material/AutoAwesome";
 
 function Header() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#ffb6c1" }}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: "#ffb6c1", borderRadius: "5px" }}
+    >
       <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
         <Typography variant="h4" sx={{ fontWeight: "bold", color: "white" }}>
           <FavoriteIcon />

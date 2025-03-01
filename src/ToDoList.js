@@ -76,6 +76,9 @@ const ToDoList = ({ tasks, toggleTaskCompletion }) => {
                   textDecoration: task.completed ? "line-through" : "none",
                   color: task.completed ? "gray" : "#333",
                   transition: "0.3s",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               />
             </Paper>
