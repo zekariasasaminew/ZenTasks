@@ -9,6 +9,8 @@ import {
   doc,
   query,
   where,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import {
@@ -51,6 +53,49 @@ const logout = async () => {
   await signOut(auth);
 };
 
+const updateStreak = async (userId) => {
+  const streakRef = doc(db, "streaks", userId);
+  const streakSnap = await getDoc(streakRef);
+  const today = new Date().toISOString().split("T")[0];
+
+  if (streakSnap.exists()) {
+    const streakData = streakSnap.data();
+    if (streakData.lastCompletedDate === today) {
+      return;
+    }
+
+    const lastDate = new Date(streakData.lastCompletedDate);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (
+      lastDate.toISOString().split("T")[0] ===
+      yesterday.toISOString().split("T")[0]
+    ) {
+      await updateDoc(streakRef, {
+        streakCount: streakData.streakCount + 1,
+        lastCompletedDate: today,
+      });
+    } else {
+      await updateDoc(streakRef, {
+        streakCount: 1,
+        lastCompletedDate: today,
+      });
+    }
+  } else {
+    await setDoc(streakRef, {
+      streakCount: 1,
+      lastCompletedDate: today,
+    });
+  }
+};
+
+const getStreak = async (userId) => {
+  const streakRef = doc(db, "streaks", userId);
+  const streakSnap = await getDoc(streakRef);
+  return streakSnap.exists() ? streakSnap.data() : 0;
+};
+
 export {
   db,
   auth,
@@ -64,4 +109,8 @@ export {
   doc,
   query,
   where,
+  setDoc,
+  getDoc,
+  updateStreak,
+  getStreak,
 };

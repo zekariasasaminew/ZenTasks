@@ -19,6 +19,8 @@ import {
   doc,
   query,
   where,
+  updateStreak,
+  getStreak,
 } from "./firebase";
 import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -27,14 +29,18 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [showCelebration, setShowCelebration] = useState(false);
   const [user, setUser] = useState(null);
+  const [streak, setStreak] = useState(0);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setUser(user);
       if (user) {
         fetchTasks(user.uid);
+        const streak = getStreak(user.uid);
+        setStreak(streak);
       } else {
         setTasks([]);
+        setStreak(0);
       }
     });
 
@@ -69,6 +75,7 @@ function App() {
   useEffect(() => {
     if (tasks.length > 0 && tasks.every((task) => task.completed)) {
       setShowCelebration(true);
+      updateStreak(user.uid);
     }
   }, [tasks]);
 
@@ -115,6 +122,18 @@ function App() {
         </Button>
       ) : (
         <>
+          <Typography
+            sx={{
+              position: "absolute",
+              top: "20px",
+              left: "30px",
+              fontWeight: "bold",
+              fontSize: "18px",
+              color: "#ff69b4",
+            }}
+          >
+            🔥 Streak: {streak} days
+          </Typography>
           {showCelebration && (
             <Confetti width={width} height={height} numberOfPieces={250} />
           )}
