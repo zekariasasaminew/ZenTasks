@@ -96,6 +96,19 @@ const getStreak = async (userId) => {
   return streakSnap.exists() ? streakSnap.data().streakCount : 0;
 };
 
+// Function to save the user's custom title
+const setUserTitle = async (userId, title) => {
+  const userRef = doc(db, "users", userId);
+  await setDoc(userRef, { title }, { merge: true });
+};
+
+// Function to retrieve the user's custom title
+const getUserTitle = async (userId) => {
+  const userRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userRef);
+  return userSnap.exists() ? userSnap.data().title : "My To-Do List";
+};
+
 export {
   db,
   auth,
@@ -113,4 +126,6 @@ export {
   getDoc,
   updateStreak,
   getStreak,
+  setUserTitle,
+  getUserTitle,
 };

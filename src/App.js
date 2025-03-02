@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import ToDoForm from "./ToDoForm";
 import ToDoList from "./ToDoList";
-import { Box, Paper, Typography, Button } from "@mui/material";
+import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import flowerImage from "./flower.jpg";
@@ -21,15 +21,20 @@ import {
   where,
   updateStreak,
   getStreak,
+  setUserTitle,
+  getUserTitle,
 } from "./firebase";
 import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { color } from "framer-motion";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [showCelebration, setShowCelebration] = useState(false);
   const [user, setUser] = useState(null);
   const [streak, setStreak] = useState(0);
+  const [customTitle, setCustomTitle] = useState("");
+  const [newTitle, setNewTitle] = useState("");
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -37,10 +42,13 @@ function App() {
       if (user) {
         fetchTasks(user.uid);
         const streak = getStreak(user.uid);
+        const savedTitle = getUserTitle(user.uid);
         setStreak(streak);
+        setCustomTitle(savedTitle);
       } else {
         setTasks([]);
         setStreak(0);
+        setCustomTitle("My To-Do List");
       }
     });
 
@@ -58,6 +66,13 @@ function App() {
     });
 
     return () => unsubscribe();
+  };
+
+  const handleTitleChange = async () => {
+    if (!user) return;
+    await setUserTitle(user.uid, newTitle);
+    setCustomTitle(newTitle);
+    setNewTitle("");
   };
 
   const addTask = async (newTask) => {
@@ -106,6 +121,34 @@ function App() {
         position: "relative",
       }}
     >
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "20px",
+          left: "30px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 1,
+          marginBottom: "15px",
+        }}
+      >
+        <TextField
+          label="To-Do List Name"
+          variant="outlined"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          sx={{ width: "60%" }}
+        />
+        <Button
+          onClick={handleTitleChange}
+          variant="contained"
+          sx={{ backgroundColor: "#ff69b4", color: "white", height: "100%" }}
+        >
+          Save
+        </Button>
+      </Box>
+
       {!user ? (
         <Button
           variant="contained"
@@ -162,6 +205,7 @@ function App() {
           <Paper
             elevation={10}
             sx={{
+              marginTop: "40px",
               width: "100%",
               maxWidth: "500px",
               minHeight: "90vh",
@@ -173,12 +217,14 @@ function App() {
               position: "relative",
             }}
           >
-            <Header />
+            <Header title={customTitle || "My Love's To Do List"} />
             <ToDoForm onAddTask={addTask} />
-            <ToDoList
-              tasks={tasks}
-              toggleTaskCompletion={toggleTaskCompletion}
-            />
+            {tasks.length > 0 && (
+              <ToDoList
+                tasks={tasks}
+                toggleTaskCompletion={toggleTaskCompletion}
+              />
+            )}
 
             {showCelebration && (
               <Box

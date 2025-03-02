@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AutoAwesome from "@mui/icons-material/AutoAwesome";
 
-function Header() {
+function Header({ title }) {
   return (
     <AppBar
       position="static"
@@ -13,7 +13,7 @@ function Header() {
         <Typography variant="h4" sx={{ fontWeight: "bold", color: "white" }}>
           <FavoriteIcon />
           <AutoAwesome />
-          {"  "}My Love's To-Do List{"  "}
+          {title}
           <AutoAwesome />
           <FavoriteIcon />
         </Typography>
