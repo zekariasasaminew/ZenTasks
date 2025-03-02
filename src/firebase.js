@@ -93,7 +93,7 @@ const updateStreak = async (userId) => {
 const getStreak = async (userId) => {
   const streakRef = doc(db, "streaks", userId);
   const streakSnap = await getDoc(streakRef);
-  return streakSnap.exists() ? streakSnap.data() : 0;
+  return streakSnap.exists() ? streakSnap.data().streakCount : 0;
 };
 
 export {

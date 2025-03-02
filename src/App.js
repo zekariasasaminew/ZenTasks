@@ -132,7 +132,7 @@ function App() {
               color: "#ff69b4",
             }}
           >
-            🔥 Streak: {streak} days
+            🔥 Streak: {streak || 0} days
           </Typography>
           {showCelebration && (
             <Confetti width={width} height={height} numberOfPieces={250} />
