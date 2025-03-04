@@ -26,7 +26,6 @@ import {
 } from "./firebase";
 import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { color } from "framer-motion";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -103,6 +102,12 @@ function App() {
     );
     await Promise.all(deletePromises);
     setShowCelebration(false);
+  };
+
+  const deleteTask = async (taskId) => {
+    if (!user) return;
+    await deleteDoc(doc(db, "tasks", taskId));
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
 
   const { width, height } = useWindowSize();
@@ -223,6 +228,7 @@ function App() {
               <ToDoList
                 tasks={tasks}
                 toggleTaskCompletion={toggleTaskCompletion}
+                deleteTask={deleteTask}
               />
             )}
 

@@ -6,11 +6,13 @@ import {
   Paper,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite"; // Cute heart icon
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"; // Empty heart icon
 
-const ToDoList = ({ tasks, toggleTaskCompletion }) => {
+const ToDoList = ({ tasks, toggleTaskCompletion, deleteTask }) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
       <Paper
@@ -80,6 +82,17 @@ const ToDoList = ({ tasks, toggleTaskCompletion }) => {
                   whiteSpace: "normal",
                 }}
               />
+              <Button
+                onClick={() => deleteTask(task.id)}
+                type="delete"
+                sx={{
+                  color: "#ffb6c1",
+                  width: "2px",
+                  marginLeft: "10px",
+                }}
+              >
+                <DeleteIcon />
+              </Button>
             </Paper>
           ))}
         </List>
