@@ -44,8 +44,8 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 QOTD: You are the sunshine that brightens my every day, and I hope
-          today brings you as much joy as you bring to me. 💕
+          💕 You are the sunshine that brightens my every day, and I hope today
+          brings you as much joy as you bring to me. 💕
         </Typography>
 
         {/* Gentle Glow Effect */}

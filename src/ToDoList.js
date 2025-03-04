@@ -1,18 +1,42 @@
 import React from "react";
+import { List, Paper, Typography, Box } from "@mui/material";
 import {
-  List,
-  ListItemText,
-  Checkbox,
-  Paper,
-  Typography,
-  Box,
-  Button,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FavoriteIcon from "@mui/icons-material/Favorite"; // Cute heart icon
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"; // Empty heart icon
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import SortableItem from "./SortableItem";
 
-const ToDoList = ({ tasks, toggleTaskCompletion, deleteTask }) => {
+const ToDoList = ({
+  tasks,
+  toggleTaskCompletion,
+  deleteTask,
+  reorderTasks,
+}) => {
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = tasks.findIndex((task) => task.id === active.id);
+      const newIndex = tasks.findIndex((task) => task.id === over.id);
+      reorderTasks(arrayMove(tasks, oldIndex, newIndex));
+    }
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
       <Paper
@@ -41,61 +65,24 @@ const ToDoList = ({ tasks, toggleTaskCompletion, deleteTask }) => {
         </Typography>
 
         {/* Task List */}
-        <List>
-          {tasks.map((task, index) => (
-            <Paper
-              key={index}
-              elevation={2}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                padding: "10px",
-                marginBottom: "10px",
-                borderRadius: "100px",
-                backgroundColor: task.completed ? "#ffe6e9" : "#fff", // Soft color change for completed tasks
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: task.completed ? "#ffd6da" : "#ffe0ec", // Subtle hover effect
-                },
-              }}
-            >
-              {/* Heart Checkbox */}
-              <Checkbox
-                checked={task.completed}
-                onChange={() => toggleTaskCompletion(index)}
-                icon={<FavoriteBorderIcon sx={{ color: "#ff69b4" }} />} // Empty heart
-                checkedIcon={<FavoriteIcon sx={{ color: "#ff69b4" }} />} // Filled heart
-              />
-
-              {/* Task Text */}
-              <ListItemText
-                primary={task.text}
-                sx={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontSize: "16px",
-                  fontWeight: "500",
-                  textDecoration: task.completed ? "line-through" : "none",
-                  color: task.completed ? "gray" : "#333",
-                  transition: "0.3s",
-                  wordBreak: "break-word",
-                  overflowWrap: "break-word",
-                  whiteSpace: "normal",
-                }}
-              />
-              <Button
-                onClick={() => deleteTask(task.id)}
-                type="delete"
-                sx={{
-                  color: "#ffb6c1",
-                  width: "2px",
-                  marginLeft: "10px",
-                }}
-              >
-                <DeleteIcon />
-              </Button>
-            </Paper>
-          ))}
-        </List>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+            <List>
+              {tasks.map((task) => (
+                <SortableItem
+                  key={task.id}
+                  task={task}
+                  toggleTaskCompletion={toggleTaskCompletion}
+                  deleteTask={deleteTask}
+                />
+              ))}
+            </List>
+          </SortableContext>
+        </DndContext>
       </Paper>
     </Box>
   );

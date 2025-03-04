@@ -85,6 +85,10 @@ function App() {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
 
+  const reorderTasks = (newOrder) => {
+    setTasks(newOrder);
+  };
+
   const { width, height } = useWindowSize();
 
   useEffect(() => {
@@ -207,7 +211,6 @@ function App() {
               Logout
             </Button>
           )}
-
           <Paper
             elevation={10}
             sx={{
@@ -221,10 +224,21 @@ function App() {
               textAlign: "center",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
               position: "absolute",
-              // bottom: "10px",
-              // left: "400px",
             }}
           >
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#ff69b4",
+                fontWeight: "bold",
+                fontSize: "16px",
+                textAlign: "right",
+                marginTop: "-15px",
+                marginBottom: "5px",
+              }}
+            >
+              {"Date: " + new Date().toLocaleDateString()}
+            </Typography>
             <Header title={customTitle || "My Love's To Do List"} />
             <ToDoForm onAddTask={addTask} />
             {tasks.length > 0 && (
@@ -232,6 +246,7 @@ function App() {
                 tasks={tasks}
                 toggleTaskCompletion={toggleTaskCompletion}
                 deleteTask={deleteTask}
+                reorderTasks={reorderTasks}
               />
             )}
 
