@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Paper, Typography, Box } from "@mui/material";
+import { Grid2, Paper, Typography, Box } from "@mui/material";
 import {
   DndContext,
   closestCenter,
@@ -30,15 +30,26 @@ const ToDoList = ({
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
-      const oldIndex = tasks.findIndex((task) => task.id === active.id);
-      const newIndex = tasks.findIndex((task) => task.id === over.id);
-      reorderTasks(arrayMove(tasks, oldIndex, newIndex));
-    }
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = tasks.findIndex((task) => task.id === active.id);
+    const newIndex = tasks.findIndex((task) => task.id === over.id);
+
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    const updatedTasks = arrayMove(tasks, oldIndex, newIndex);
+    reorderTasks([...updatedTasks]);
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        mt: 2,
+      }}
+    >
       <Paper
         elevation={10} // Soft shadow for cuteness
         sx={{
@@ -71,16 +82,17 @@ const ToDoList = ({
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
-            <List>
+            <Grid2 container spacing={2} justifyContent={"center"}>
               {tasks.map((task) => (
-                <SortableItem
-                  key={task.id}
-                  task={task}
-                  toggleTaskCompletion={toggleTaskCompletion}
-                  deleteTask={deleteTask}
-                />
+                <Grid2 xs={12} sm={1} key={task.id}>
+                  <SortableItem
+                    task={task}
+                    toggleTaskCompletion={toggleTaskCompletion}
+                    deleteTask={deleteTask}
+                  />
+                </Grid2>
               ))}
-            </List>
+            </Grid2>
           </SortableContext>
         </DndContext>
       </Paper>

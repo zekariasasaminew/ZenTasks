@@ -3,6 +3,7 @@ import Header from "./Header";
 import ToDoForm from "./ToDoForm";
 import ToDoList from "./ToDoList";
 import Quotes from "./quotes";
+import UpdateNotification from "./UpdateNotification.js";
 import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
@@ -61,11 +62,12 @@ function App() {
     await addDoc(tasksCollection, { ...newTask, userId: user.uid });
   };
 
-  const toggleTaskCompletion = async (index) => {
-    if (!user) return;
-    const taskToUpdate = tasks[index];
-    const taskDoc = doc(db, "tasks", taskToUpdate.id);
-    await updateDoc(taskDoc, { completed: !taskToUpdate.completed });
+  const toggleTaskCompletion = async (taskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   const handleNewTask = async () => {
@@ -128,37 +130,10 @@ function App() {
         alignItems: "center",
         padding: "0",
         margin: "0",
-        position: "relative",
+        position: "absolute",
+        overflow: "hidden",
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "720px",
-          left: "200px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 1,
-          marginBottom: "15px",
-        }}
-      >
-        <TextField
-          label="To-Do List Name"
-          variant="outlined"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          sx={{ width: "60%" }}
-        />
-        <Button
-          onClick={handleTitleChange}
-          variant="contained"
-          sx={{ backgroundColor: "#ff69b4", color: "white", height: "100%" }}
-        >
-          Save
-        </Button>
-      </Box>
-
       {!user ? (
         <Button
           variant="contained"
@@ -175,6 +150,38 @@ function App() {
         </Button>
       ) : (
         <>
+          <UpdateNotification />
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: "720px",
+              left: "200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 1,
+              marginBottom: "15px",
+            }}
+          >
+            <TextField
+              label="To-Do List Name"
+              variant="outlined"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              sx={{ width: "60%" }}
+            />
+            <Button
+              onClick={handleTitleChange}
+              variant="contained"
+              sx={{
+                backgroundColor: "#ff69b4",
+                color: "white",
+                height: "100%",
+              }}
+            >
+              Save
+            </Button>
+          </Box>
           <Typography
             sx={{
               position: "absolute",
@@ -214,16 +221,20 @@ function App() {
           <Paper
             elevation={10}
             sx={{
+              marginLeft: "40px",
               marginTop: "40px",
               width: "100%",
-              maxWidth: "500px",
+              maxWidth: "600px",
               minHeight: "90vh",
+              maxHeight: "90vh",
               backgroundColor: "#fff0f6",
               borderRadius: "15px",
               padding: "30px",
               textAlign: "center",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
               position: "absolute",
+              zIndex: 1,
+              overflowY: "auto",
             }}
           >
             <Typography
