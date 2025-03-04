@@ -35,25 +35,6 @@ function App() {
   const [customTitle, setCustomTitle] = useState("");
   const [newTitle, setNewTitle] = useState("");
 
-  useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      if (user) {
-        fetchTasks(user.uid);
-        const streak = getStreak(user.uid);
-        const savedTitle = getUserTitle(user.uid);
-        setStreak(streak);
-        setCustomTitle(savedTitle);
-      } else {
-        setTasks([]);
-        setStreak(0);
-        setCustomTitle("My To-Do List");
-      }
-    });
-
-    return () => unsubscribeAuth();
-  }, []);
-
   const fetchTasks = async (userId) => {
     const q = query(tasksCollection, where("userId", "==", userId));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -86,13 +67,6 @@ function App() {
     await updateDoc(taskDoc, { completed: !taskToUpdate.completed });
   };
 
-  useEffect(() => {
-    if (tasks.length > 0 && tasks.every((task) => task.completed)) {
-      setShowCelebration(true);
-      updateStreak(user.uid);
-    }
-  }, [tasks]);
-
   const handleNewTask = async () => {
     if (!user) return;
     const q = query(tasksCollection, where("userId", "==", user.uid));
@@ -111,6 +85,32 @@ function App() {
   };
 
   const { width, height } = useWindowSize();
+
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      if (user) {
+        fetchTasks(user.uid);
+        const streak = getStreak(user.uid);
+        const savedTitle = getUserTitle(user.uid);
+        setStreak(streak);
+        setCustomTitle(savedTitle);
+      } else {
+        setTasks([]);
+        setStreak(0);
+        setCustomTitle("My To-Do List");
+      }
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
+
+  useEffect(() => {
+    if (tasks.length > 0 && tasks.every((task) => task.completed)) {
+      setShowCelebration(true);
+      updateStreak(user.uid);
+    }
+  }, [tasks, user]);
 
   return (
     <Box
