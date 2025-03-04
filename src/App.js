@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import ToDoForm from "./ToDoForm";
 import ToDoList from "./ToDoList";
+import Quotes from "./quotes";
 import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
@@ -129,8 +130,8 @@ function App() {
       <Box
         sx={{
           position: "absolute",
-          bottom: "20px",
-          left: "30px",
+          bottom: "720px",
+          left: "200px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -219,7 +220,9 @@ function App() {
               padding: "30px",
               textAlign: "center",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-              position: "relative",
+              position: "absolute",
+              // bottom: "10px",
+              // left: "400px",
             }}
           >
             <Header title={customTitle || "My Love's To Do List"} />
@@ -276,6 +279,7 @@ function App() {
               </Box>
             )}
           </Paper>
+          <Quotes />
         </>
       )}
     </Box>
