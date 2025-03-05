@@ -44,8 +44,8 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 You are the sunshine that brightens my every day, and I hope today
-          brings you as much joy as you bring to me. 💕
+          💕 Philippians 4:13: "I can do all things through Christ who
+          strengthens me" 💕
         </Typography>
 
         {/* Gentle Glow Effect */}

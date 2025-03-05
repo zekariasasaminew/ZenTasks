@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const CURRENT_VERSION = "1.0.1";
+const CURRENT_VERSION = "1.1.4";
 
 const UpdateNotification = () => {
   const [showUpdateMessage, setShowUpdateMessage] = useState(false);
@@ -33,12 +33,12 @@ const UpdateNotification = () => {
       <DialogTitle>🚀 What's New?</DialogTitle>
       <DialogContent>
         <Typography variant="body1" sx={{ marginBottom: "10px" }}>
-          - First-time feature: You will now see updates when the website is
-          improved! 🎉
-          <br />- Added the ability to move tasks to the side instead of
-          stacking! <br />
-          - Improved the drag-and-drop experience for a smoother UI. <br />
-          - Fixed task order resetting after refresh. <br />
+          <h3> Version: {CURRENT_VERSION} </h3>
+          Update: <br />
+          - Bug Fixes 🎉
+          <br />- Completed tasks go to the bottom of the list automatically{" "}
+          <br />
+          - New Quote <br />
         </Typography>
         <Typography variant="body2" color="textSecondary">
           Refresh the page if you experience any issues.

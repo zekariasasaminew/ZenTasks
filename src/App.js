@@ -44,7 +44,10 @@ function App() {
         id: doc.id,
         ...doc.data(),
       }));
-      setTasks(fetchedTasks);
+
+      const sortedTasks = [...fetchedTasks].sort((a, b) => a.order - b.order);
+
+      setTasks(sortedTasks);
     });
 
     return () => unsubscribe();
@@ -63,11 +66,25 @@ function App() {
   };
 
   const toggleTaskCompletion = async (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) =>
         task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
+      );
+
+      const sortedTasks = [...updatedTasks].sort(
+        (a, b) => a.completed - b.completed
+      );
+
+      sortedTasks.forEach(async (task, index) => {
+        const taskDoc = doc(db, "tasks", task.id);
+        await updateDoc(taskDoc, {
+          completed: task.completed,
+          order: index,
+        });
+      });
+
+      return sortedTasks;
+    });
   };
 
   const handleNewTask = async () => {
@@ -84,7 +101,11 @@ function App() {
   const deleteTask = async (taskId) => {
     if (!user) return;
     await deleteDoc(doc(db, "tasks", taskId));
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    setTasks((prevTasks) => {
+      return prevTasks
+        .filter((task) => task.id !== taskId)
+        .map((task) => ({ ...task }));
+    });
   };
 
   const reorderTasks = (newOrder) => {
