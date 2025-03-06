@@ -44,8 +44,9 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Philippians 4:13: "I can do all things through Christ who
-          strengthens me" 💕
+          💕 Isaiah 41:10: "Do not fear, for I am with you; do not be dismayed,
+          for I am your God. I will strengthen you, I will help you, I will
+          uphold you with my righteous right hand" 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
