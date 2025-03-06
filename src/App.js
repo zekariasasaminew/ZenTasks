@@ -46,7 +46,6 @@ function App() {
       }));
 
       const sortedTasks = [...fetchedTasks].sort((a, b) => a.order - b.order);
-
       setTasks(sortedTasks);
     });
 
@@ -62,7 +61,13 @@ function App() {
 
   const addTask = async (newTask) => {
     if (!user) return;
-    await addDoc(tasksCollection, { ...newTask, userId: user.uid });
+
+    const docRef = await addDoc(tasksCollection, {
+      ...newTask,
+      userId: user.uid,
+      completed: false,
+      order: tasks.length,
+    });
   };
 
   const toggleTaskCompletion = async (taskId) => {

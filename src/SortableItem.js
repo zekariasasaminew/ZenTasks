@@ -1,10 +1,17 @@
 import React, { useMemo } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ListItemText, Checkbox, Paper, Button } from "@mui/material";
+import {
+  ListItemText,
+  Checkbox,
+  Paper,
+  Button,
+  Typography,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import dayjs from "dayjs";
 
 const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -17,6 +24,9 @@ const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
     }),
     [transform, transition]
   );
+
+  const isOverdue =
+    task.dueDate && dayjs(task.dueDate).isBefore(dayjs(), "day");
 
   return (
     <Paper
@@ -65,6 +75,13 @@ const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
           flexGrow: 1,
         }}
       />
+      {task.dueDate && (
+        <Typography
+          sx={{ fontSize: "12px", color: isOverdue ? "red" : "gray" }}
+        >
+          Due: {task.dueDate}
+        </Typography>
+      )}
       <Button
         onClick={() => deleteTask(task.id)}
         sx={{ color: "#ffb6c1", marginLeft: "10px" }}

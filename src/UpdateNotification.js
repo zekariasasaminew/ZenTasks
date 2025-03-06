@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const CURRENT_VERSION = "1.1.4";
+const CURRENT_VERSION = "1.2.0";
 
 const UpdateNotification = () => {
   const [showUpdateMessage, setShowUpdateMessage] = useState(false);
@@ -35,10 +35,9 @@ const UpdateNotification = () => {
         <Typography variant="body1" sx={{ marginBottom: "10px" }}>
           <h3> Version: {CURRENT_VERSION} </h3>
           Update: <br />
-          - Bug Fixes 🎉
-          <br />- Completed tasks go to the bottom of the list automatically{" "}
-          <br />
-          - New Quote <br />
+          - Calander to set task due date🎉
+          <br />- Overdue tasks have red date <br />
+          - Bug Fixes <br />
         </Typography>
         <Typography variant="body2" color="textSecondary">
           Refresh the page if you experience any issues.
