@@ -44,9 +44,8 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Isaiah 41:10: "Do not fear, for I am with you; do not be dismayed,
-          for I am your God. I will strengthen you, I will help you, I will
-          uphold you with my righteous right hand" 💕
+          💕 Come to me, all you who are weary and burdened, and I will give you
+          rest. 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
