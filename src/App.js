@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
-import ToDoForm from "./ToDoForm";
-import ToDoList from "./ToDoList";
-import Quotes from "./quotes";
-import UpdateNotification from "./UpdateNotification.js";
+import Header from "./components/Header.js";
+import ToDoForm from "./components/ToDoForm.js";
+import ToDoList from "./components/ToDoList.js";
+import Quotes from "./utils/quotes.js";
+import UpdateNotification from "./functions/UpdateNotification.js";
 import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
-import flowerImage from "./flower.jpg";
+import flowerImage from "./assets/flower.jpg";
 import {
   db,
   auth,
