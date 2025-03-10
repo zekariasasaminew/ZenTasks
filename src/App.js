@@ -192,6 +192,7 @@ function App() {
             <TextField
               label="To-Do List Name"
               variant="outlined"
+              autoComplete="off"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               sx={{ width: "60%" }}
