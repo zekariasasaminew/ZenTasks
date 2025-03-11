@@ -44,8 +44,7 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Come to me, all you who are weary and burdened, and I will give you
-          rest. 💕
+          💕 Winners don't make excuses! 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
