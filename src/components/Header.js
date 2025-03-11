@@ -42,7 +42,7 @@ function Header({ title }) {
           endIcon={<ArrowDropDownIcon />}
           onClick={handleClick}
         >
-          Useful Resources
+          Quick Access
         </Button>
 
         <Menu
