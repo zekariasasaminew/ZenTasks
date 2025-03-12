@@ -13,6 +13,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import dayjs from "dayjs";
 
+const priorityColors = {
+  High: "#ff6b6b", // Red
+  Medium: "#ffa502", // Orange
+  Low: "#1dd1a1", // Green
+};
+
 const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: task.id });
@@ -45,6 +51,8 @@ const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
         minWidth: "300px",
         transform: style.transform,
         transition: style.transition,
+        borderLeft: `10px solid ${priorityColors[task.priority] || "#ccc"}`,
+        borderRight: `10px solid ${priorityColors[task.priority] || "#ccc"}`,
         "&:hover": {
           backgroundColor: task.completed ? "#ffd6da" : "#ffe0ec",
           boxShadow: "0px 4px 8px rgba(255, 182, 193, 0.5)",
@@ -77,7 +85,11 @@ const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
       />
       {task.dueDate && (
         <Typography
-          sx={{ fontSize: "12px", color: isOverdue ? "red" : "gray" }}
+          sx={{
+            marginLeft: "7px",
+            fontSize: "12px",
+            color: isOverdue ? "red" : "gray",
+          }}
         >
           Due: {task.dueDate}
         </Typography>

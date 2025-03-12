@@ -251,7 +251,7 @@ function App() {
               marginLeft: "40px",
               marginTop: "40px",
               width: "100%",
-              maxWidth: "600px",
+              maxWidth: "800px",
               minHeight: "90vh",
               maxHeight: "90vh",
               backgroundColor: "#fff0f6",
