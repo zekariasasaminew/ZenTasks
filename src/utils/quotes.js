@@ -19,7 +19,7 @@ const Quotes = () => {
           padding: "25px",
           borderRadius: "20px",
           background: "linear-gradient(135deg, #ffdde1, #ffb6c1, #fff0f6)",
-          maxWidth: "420px",
+          maxWidth: "320px",
           width: "100%",
           textAlign: "center",
           border: "2px solid #ff69b4",
@@ -44,7 +44,8 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Winners don't make excuses! 💕
+          💕 The best time to plant a tree was 20 years ago. The second best
+          time is now. 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
