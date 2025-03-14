@@ -38,7 +38,7 @@ function Header({ title }) {
         </Typography>
 
         <Button
-          sx={{ color: "white", fontWeight: "bold" }}
+          sx={{ marginLeft: "30px", color: "white", fontWeight: "bold" }}
           endIcon={<ArrowDropDownIcon />}
           onClick={handleClick}
         >
