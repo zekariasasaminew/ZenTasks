@@ -44,7 +44,8 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Winners don't make excuses! 💕
+          💕 Surely goodness and mercy shall follow me all the days of my life,
+          and I will dwell in the house of the Lord forever! 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
