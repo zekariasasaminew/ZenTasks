@@ -13,7 +13,6 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
-import dayjs from "dayjs";
 
 const ToDoList = ({
   tasks,
@@ -57,7 +56,8 @@ const ToDoList = ({
           padding: "30px",
           borderRadius: "15px",
           backgroundColor: "#fff0f6", // Soft pink background
-          maxWidth: "400px",
+          maxWidth: "600px",
+          minHeight: "400px",
           width: "100%",
           textAlign: "center",
           border: "2px solid #ffb6c1", // Light pink border
