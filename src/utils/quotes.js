@@ -44,8 +44,7 @@ const Quotes = () => {
             animation: "floatText 3s infinite ease-in-out",
           }}
         >
-          💕 Surely goodness and mercy shall follow me all the days of my life,
-          and I will dwell in the house of the Lord forever! 💕
+          💕 Do what you can, with what you have, where you are 💕
         </Typography>
 
         {/* Gentle Glow Effect */}
