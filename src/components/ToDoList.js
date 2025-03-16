@@ -41,6 +41,11 @@ const ToDoList = ({
     reorderTasks([...updatedTasks]);
   };
 
+  // ✅ Count tasks
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((task) => task.completed).length;
+  const pendingTasks = totalTasks - completedTasks;
+
   return (
     <Box
       sx={{
@@ -63,6 +68,19 @@ const ToDoList = ({
           border: "2px solid #ffb6c1", // Light pink border
         }}
       >
+        {/* Task Counter */}
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: "600",
+            color: "#ff69b4",
+            marginBottom: "10px",
+          }}
+        >
+          📌 {pendingTasks} Pending | ✅ {completedTasks} Completed
+        </Typography>
+
         {/* Title */}
         <Typography
           variant="h5"
