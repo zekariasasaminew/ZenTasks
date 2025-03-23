@@ -25,6 +25,7 @@ function Header({ title }) {
 
   return (
     <AppBar
+      id="header"
       position="static"
       sx={{ backgroundColor: "#ffb6c1", borderRadius: "5px" }}
     >

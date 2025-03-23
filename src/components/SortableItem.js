@@ -47,7 +47,6 @@ const SortableItem = ({ task, toggleTaskCompletion, deleteTask }) => {
         marginBottom: "12px",
         borderRadius: "50px",
         backgroundColor: task.completed ? "#ffe6e9" : "#fff",
-        transition: "0.3s",
         minWidth: "300px",
         transform: style.transform,
         transition: style.transition,

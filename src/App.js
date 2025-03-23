@@ -6,6 +6,7 @@ import Quotes from "./utils/quotes.js";
 import UpdateNotification from "./functions/UpdateNotification.js";
 import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
+// import Joyride from "./joyrides.js";
 import { useWindowSize } from "react-use";
 import flowerImage from "./assets/flower.jpg";
 import {
@@ -68,6 +69,9 @@ function App() {
       completed: false,
       order: tasks.length,
     });
+    if (docRef.id === "21") {
+      console.log(docRef.id);
+    }
   };
 
   const toggleTaskCompletion = async (taskId) => {
@@ -160,6 +164,7 @@ function App() {
         overflow: "hidden",
       }}
     >
+      {/* <Joyride steps={[]} /> */}
       {!user ? (
         <Button
           variant="contained"
