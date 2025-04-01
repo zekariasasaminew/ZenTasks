@@ -184,14 +184,18 @@ function App() {
           <UpdateNotification />
           <Box
             sx={{
-              position: "absolute",
-              bottom: "720px",
-              left: "200px",
+              position: "fixed",
+              top: "100px",
+              left: "20px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               gap: 1,
-              marginBottom: "15px",
+              zIndex: 2, // ensures it sits above most content
+              backgroundColor: "#fff0f6", // optional background
+              padding: "10px", // optional padding
+              borderRadius: "8px", // optional for styling
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // optional shadow
             }}
           >
             <TextField
