@@ -9,6 +9,7 @@ import Confetti from "react-confetti";
 // import Joyride from "./joyrides.js";
 import { useWindowSize } from "react-use";
 import flowerImage from "./assets/flower.jpg";
+import MoodSelector from "./components/MoodSelector";
 import {
   db,
   auth,
@@ -26,6 +27,8 @@ import {
   getStreak,
   setUserTitle,
   getUserTitle,
+  setUserMood,
+  getUserMood,
 } from "./firebase";
 import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -37,6 +40,7 @@ function App() {
   const [streak, setStreak] = useState(0);
   const [customTitle, setCustomTitle] = useState("");
   const [newTitle, setNewTitle] = useState("");
+  const [selectedMood, setSelectedMood] = useState("");
 
   const fetchTasks = async (userId) => {
     const q = query(tasksCollection, where("userId", "==", userId));
@@ -124,12 +128,14 @@ function App() {
   const { width, height } = useWindowSize();
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
         fetchTasks(user.uid);
         const streak = getStreak(user.uid);
         const savedTitle = getUserTitle(user.uid);
+        const savedMood = await getUserMood(user.uid);
+        setSelectedMood(savedMood);
         setStreak(streak);
         setCustomTitle(savedTitle);
       } else {
@@ -187,11 +193,11 @@ function App() {
               position: "fixed",
               top: "100px",
               left: "20px",
+              paddingRight: "20px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               gap: 1,
-              zIndex: 2, // ensures it sits above most content
               backgroundColor: "#fff0f6", // optional background
               padding: "10px", // optional padding
               borderRadius: "8px", // optional for styling
@@ -287,6 +293,27 @@ function App() {
               {"Date: " + new Date().toLocaleDateString()}
             </Typography>
             <Header title={customTitle || "My Love's To Do List"} />
+            <MoodSelector
+              onMoodChange={async (mood) => {
+                setSelectedMood(mood);
+                if (user) await setUserMood(user.uid, mood);
+              }}
+            />
+
+            {selectedMood && (
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  color: "#ff69b4",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  marginTop: "10px",
+                }}
+              >
+                Today's mood: {selectedMood}
+              </Typography>
+            )}
+
             <ToDoForm onAddTask={addTask} />
             {tasks.length > 0 && (
               <ToDoList

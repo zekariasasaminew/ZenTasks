@@ -107,6 +107,17 @@ const getUserTitle = async (userId) => {
   return userSnap.exists() ? userSnap.data().title : "My To-Do List";
 };
 
+const setUserMood = async (userId, mood) => {
+  const userDoc = doc(db, "users", userId);
+  await setDoc(userDoc, { mood }, { merge: true });
+};
+
+const getUserMood = async (userId) => {
+  const userDoc = doc(db, "users", userId);
+  const userSnap = await getDoc(userDoc);
+  return userSnap.exists() ? userSnap.data().mood || "" : "";
+};
+
 export {
   db,
   auth,
@@ -126,4 +137,6 @@ export {
   getStreak,
   setUserTitle,
   getUserTitle,
+  setUserMood,
+  getUserMood,
 };
