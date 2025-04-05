@@ -170,7 +170,6 @@ function App() {
         overflow: "hidden",
       }}
     >
-      {/* <Joyride steps={[]} /> */}
       {!user ? (
         <Button
           variant="contained"
@@ -260,6 +259,44 @@ function App() {
               Logout
             </Button>
           )}
+          <Box
+            sx={{
+              position: "fixed",
+              top: "100px",
+              right: "20px",
+              paddingRight: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: 1,
+              backgroundColor: "#fff0f6",
+              padding: "10px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <MoodSelector
+              onMoodChange={async (mood) => {
+                setSelectedMood(mood);
+                if (user) await setUserMood(user.uid, mood);
+              }}
+            />
+            {selectedMood && (
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  color: "#ff69b4",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  marginTop: "10px",
+                }}
+              >
+                Today’s mood: {selectedMood}
+              </Typography>
+            )}
+          </Box>
+
           <Paper
             elevation={10}
             sx={{
@@ -293,26 +330,6 @@ function App() {
               {"Date: " + new Date().toLocaleDateString()}
             </Typography>
             <Header title={customTitle || "My Love's To Do List"} />
-            <MoodSelector
-              onMoodChange={async (mood) => {
-                setSelectedMood(mood);
-                if (user) await setUserMood(user.uid, mood);
-              }}
-            />
-
-            {selectedMood && (
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  color: "#ff69b4",
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  marginTop: "10px",
-                }}
-              >
-                Today's mood: {selectedMood}
-              </Typography>
-            )}
 
             <ToDoForm onAddTask={addTask} />
             {tasks.length > 0 && (
