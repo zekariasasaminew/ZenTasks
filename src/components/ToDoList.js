@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid2, Paper, Typography, Box } from "@mui/material";
+import { Grid, Paper, Typography, Box } from "@mui/material";
 import {
   DndContext,
   closestCenter,
@@ -101,17 +101,17 @@ const ToDoList = ({
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
-            <Grid2 container spacing={2} justifyContent={"center"}>
+            <Grid container spacing={2} justifyContent={"center"}>
               {tasks.map((task) => (
-                <Grid2 xs={12} sm={1} key={task.id}>
+                <Grid xs={12} sm={1} key={task.id}>
                   <SortableItem
                     task={task}
                     toggleTaskCompletion={toggleTaskCompletion}
                     deleteTask={deleteTask}
                   />
-                </Grid2>
+                </Grid>
               ))}
-            </Grid2>
+            </Grid>
           </SortableContext>
         </DndContext>
       </Paper>
