@@ -14,7 +14,6 @@ const quoteList = [
   "🧗‍♀️ The climb might be tough, but the view is worth it.",
 
   // 🧠 Thoughtful / Self-Improvement
-  "🔍 What can you learn from today?",
   "🛠 Every failure teaches something valuable.",
   "📚 The more you know, the more you grow.",
   "🧠 Feed your mind with good thoughts.",
