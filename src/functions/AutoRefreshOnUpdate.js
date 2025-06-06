@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const CURRENT_VERSION = "1.2.5";
+const CURRENT_VERSION = process.env.CURRENT_VERSION || "1.0.0";
 
 const AutoRefreshOnUpdate = () => {
   useEffect(() => {
