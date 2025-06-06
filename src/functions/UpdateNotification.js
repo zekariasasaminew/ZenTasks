@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const CURRENT_VERSION = "1.2.1";
+const CURRENT_VERSION = "1.2.3";
 
 const UpdateNotification = () => {
   const [showUpdateMessage, setShowUpdateMessage] = useState(false);
