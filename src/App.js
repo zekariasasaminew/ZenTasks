@@ -6,7 +6,7 @@ import Quotes from "./utils/quotes.js";
 import UpdateNotification from "./functions/UpdateNotification.js";
 import { Box, Paper, Typography, Button, TextField } from "@mui/material";
 import Confetti from "react-confetti";
-// import Joyride from "./joyrides.js";
+import AutoRefreshOnUpdate from "./functions/AutoRefreshOnUpdate.js";
 import { useWindowSize } from "react-use";
 import flowerImage from "./assets/flower.jpg";
 import MoodSelector from "./components/MoodSelector";
@@ -186,6 +186,7 @@ function App() {
         </Button>
       ) : (
         <>
+          <AutoRefreshOnUpdate />
           <UpdateNotification />
           <Box
             sx={{
