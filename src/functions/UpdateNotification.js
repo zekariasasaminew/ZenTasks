@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const CURRENT_VERSION = "1.2.3";
+const CURRENT_VERSION = "1.2.4";
 
 const UpdateNotification = () => {
   const [showUpdateMessage, setShowUpdateMessage] = useState(false);
@@ -35,7 +35,7 @@ const UpdateNotification = () => {
         <Typography variant="body1" sx={{ marginBottom: "10px" }}>
           <h3> Version: {CURRENT_VERSION} </h3>
           Update: <br />
-          - Useful Resources dropdown added! 🎉
+          - Added a code to enhance visibility 🎉
           <br />- New quotes <br />
           - Bug Fixes <br />
         </Typography>
