@@ -8,7 +8,7 @@
     "@emotion/react": "^11.14.0",
     "@mui/icons-material": "^7.3.2",
     "@emotion/styled": "^11.14.1",
-    "@mui/lab": "^7.0.0-beta.17",
+    "@mui/lab": "^7.0.0",
     "@mui/material": "^7.3.2",
     "@mui/x-date-pickers": "^8.11.3",
     "@testing-library/dom": "^10.4.1",
