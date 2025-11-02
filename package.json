@@ -15,7 +15,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "dayjs": "^1.11.18",
+    "dayjs": "^1.11.19",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.23.24",
     "firebase": "^12.5.0",
